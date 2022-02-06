@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-^4!e9xy7w26&0l8hli_0aj*()ohies)y(wrp-=%t3%a+$r%mz3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'krisskad.herokuapp.com', 'www.krisskad.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'krisskad.herokuapp.com', 'www.krisskad.herokuapp.com', 'krisskad.in', 'www.krisskad.in']
 
 CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
 CORS_ALLOW_CREDENTIALS = True
@@ -26,6 +26,8 @@ LOGOUT_URL = '/dashboard/logout/'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'rest_framework',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

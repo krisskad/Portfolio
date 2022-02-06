@@ -1,6 +1,8 @@
 from django.db import models
 import re
 from ckeditor.fields import RichTextField
+from django.urls import reverse
+
 
 class Information(models.Model):
     name_complete = models.CharField(max_length=50, blank=True, null=True)
@@ -24,6 +26,12 @@ class Information(models.Model):
     def __str__(self):
         return self.name_complete
 
+    def get_absolute_url(self):
+        return "/information/{}".format(self.name_complete)
+
+    class Meta:
+        ordering = ['-id']
+
 
 class Competence(models.Model):
     title = models.CharField(max_length=50, blank=False, null=False)
@@ -32,6 +40,12 @@ class Competence(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return "/competence/{}".format(self.title)
+
+    class Meta:
+        ordering = ['-id']
 
 
 class Education(models.Model):
@@ -42,6 +56,12 @@ class Education(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return "/education/{}".format(self.title)
+
+    class Meta:
+        ordering = ['-id']
+
 
 class Experience(models.Model):
     title = models.CharField(max_length=50, blank=False, null=False)
@@ -50,6 +70,12 @@ class Experience(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return "/experience/{}".format(self.title)
+
+    class Meta:
+        ordering = ['-id']
 
 
 class Project(models.Model):
@@ -65,6 +91,9 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return "/projects/{}".format(self.slug)
+
     def get_project_absolute_url(self):
         return "/projects/{}".format(self.slug)
 
@@ -77,6 +106,9 @@ class Project(models.Model):
         slug = re.sub(" ", "_", slug)
         return slug.lower()
 
+    class Meta:
+        ordering = ['-id']
+
 
 class Message(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
@@ -87,3 +119,6 @@ class Message(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['-id']
