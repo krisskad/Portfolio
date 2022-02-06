@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.http import JsonResponse
 from django.core import serializers
+import random
 
 import json
 from django.db.models import Q
@@ -60,6 +61,7 @@ def homePage(request):
         education = Education.objects.all().order_by('-id')
         experiences = Experience.objects.all().order_by('-id')
         projects = Project.objects.filter(show_in_slider=True).order_by('id')
+        # random.shuffle(projects)
         info = Information.objects.first()
         context = {
             'info': info,
