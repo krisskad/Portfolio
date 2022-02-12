@@ -20,6 +20,8 @@ from info.models import (
     Message
 )
 
+from .helpers import *
+
 
 def email_send(data):
     old_message = Message.objects.last()
@@ -38,22 +40,20 @@ def homePage(request):
     context = {}
 
     if request.method == 'POST':
-        if request.POST.get('rechaptcha', None):
-            form = MessageForm(request.POST)
-            if form.is_valid():
-                form.save(commit=False)
-                data = {
-                    'name': request.POST['name'],
-                    'email': request.POST['email'],
-                    'message': request.POST['message']
-                }
-                if email_send(data):
-                    form.save()
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            form.save(commit=False)
+            data = {
+                'name': request.POST['name'],
+                'email': request.POST['email'],
+                'message': request.POST['message']
+            }
+            if email_send(data):
+                form.save()
 
-                return JsonResponse({'success': True})
-            else:
-                return JsonResponse({'success': False, 'errors': form.errors})
-        return JsonResponse({'success': False, 'errors': "Oops, you have to check the recaptcha !"})
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
 
     if request.method == 'GET':
         form = MessageForm()
@@ -63,8 +63,19 @@ def homePage(request):
         projects = Project.objects.filter(show_in_slider=True).order_by('id')
         # random.shuffle(projects)
         info = Information.objects.first()
+
+        ########################################################
+        get_info = get_random_text("technology")["activity"]
+        get_advise = random_advise()["slip"]["advice"]
+        get_affirmation = random_affirmation()["affirmation"]
+        random_pixart()
+        ########################################################
+        # print(random_info)
         context = {
             'info': info,
+            'get_info': get_info,
+            'get_advise': get_advise,
+            'get_affirmation': get_affirmation,
             'competences': competences,
             'education': education,
             'experiences': experiences,
