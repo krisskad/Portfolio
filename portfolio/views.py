@@ -23,10 +23,14 @@ from info.models import (
 from .helpers import *
 import random
 
+
 def email_send(data):
+
     old_message = Message.objects.last()
-    if old_message.name == data['name'] and old_message.email == data['email'] and old_message.message == data['message']:
-        return False
+    if old_message:
+        if old_message.name == data['name'] and old_message.email == data['email'] and old_message.message == data['message']:
+            return False
+
     subject = 'Portfolio : Mail from {}'.format(data['name'])
     message = '{}\nSender Email: {}'.format(data['message'], data['email'])
     email_from = settings.EMAIL_HOST_USER
@@ -48,6 +52,7 @@ def homePage(request):
                 'email': request.POST['email'],
                 'message': request.POST['message']
             }
+            # print(data)
             if email_send(data):
                 form.save()
 
@@ -85,10 +90,7 @@ def homePage(request):
             'experiences': experiences,
             'projects': projects,
             'form': form,
-            'recaptcha_key': config("recaptcha_site_key", default="")
         }
-        for i in projects:
-            print(i)
     return render(request, template_name, context)
 
 
@@ -135,5 +137,3 @@ def handler404(request, exception):
 
 def test404(request):
     return render(request, 'errors/404.html')
-
-
