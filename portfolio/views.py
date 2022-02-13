@@ -21,7 +21,7 @@ from info.models import (
 )
 
 from .helpers import *
-
+import random
 
 def email_send(data):
     old_message = Message.objects.last()
@@ -65,17 +65,21 @@ def homePage(request):
         info = Information.objects.first()
 
         ########################################################
-        get_info = get_random_text("technology")["activity"]
-        get_advise = random_advise()["slip"]["advice"]
-        get_affirmation = random_affirmation()["affirmation"]
+        # get_info = get_random_text()
+        # get_advise = random_advise()
+        # get_affirmation = random_affirmation()
+        functions = [get_random_text, random_advise, random_affirmation]
+        random_call = random.choice(functions)()
+
         random_pixart()
         ########################################################
         # print(random_info)
         context = {
             'info': info,
-            'get_info': get_info,
-            'get_advise': get_advise,
-            'get_affirmation': get_affirmation,
+            # 'get_info': get_info,
+            # 'get_advise': get_advise,
+            # 'get_affirmation': get_affirmation,
+            'random': random_call,
             'competences': competences,
             'education': education,
             'experiences': experiences,
@@ -83,6 +87,8 @@ def homePage(request):
             'form': form,
             'recaptcha_key': config("recaptcha_site_key", default="")
         }
+        for i in projects:
+            print(i)
     return render(request, template_name, context)
 
 
