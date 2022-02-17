@@ -68,6 +68,14 @@ def homePage(request):
         projects = Project.objects.filter(show_in_slider=True).order_by('id')
         # random.shuffle(projects)
         info = Information.objects.first()
+        # The passion of solving real-world problems with lines of codes and the money that I generated from that code makes me sleepless for my next goal.
+        """
+        I'm a Computer Science Engineer, contributing with the line of code, currently working on Django [DRF] RESTAPI's and backend development. Interest in the field of Deep Leaning, Image Processing, Natural Language Processing and Automation.
+
+        We are planning Game Development project to get deep into the metaverse. You can also be a part of it by contributing your work on Level Designing, Blender, Substance, Unity3D, After Effects, Content Writing etc.
+        
+        Open for contributions
+        """
 
         ########################################################
         # get_info = get_random_text()
