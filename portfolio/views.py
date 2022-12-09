@@ -84,7 +84,7 @@ def homePage(request):
         functions = [get_random_text, random_advise, random_affirmation]
         random_call = random.choice(functions)()
 
-        random_pixart()
+        # random_pixart()
         ########################################################
         # print(random_info)
         context = {
